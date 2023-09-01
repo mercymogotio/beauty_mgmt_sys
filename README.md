@@ -1,2 +1,2 @@
 # beauty_mgmt_sys
-for spa session booking
+spa session booking system that allows appointment booking
