@@ -1,0 +1,47 @@
+{% extends 'dashboard/base.html' %}
+
+    {% block breadcrumb %}
+        Add Services 
+    {% endblock breadcrumb %}
+
+    {% block title %}
+        Add Services
+    {% endblock title %}
+       
+{% block content %}
+
+{% load static %}
+
+<section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+
+                        <form action="" method="POST" enctype="multipart/form-data">
+
+                            <div class="card-body">
+                                {% csrf_token %}
+
+                                {{ form.as_p }}
+                            </div>    
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Add Service</button>
+                            </div>
+                            
+                        </form>
+                        
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+            </div>
+
+        </div><!-- /.container-fluid -->
+      </section>
+
+  {% endblock content %}
+
+

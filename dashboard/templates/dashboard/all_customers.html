@@ -1,0 +1,126 @@
+{% extends 'dashboard/base.html' %}
+
+{% block breadcrumb %}
+Customers
+{% endblock breadcrumb %}
+
+{% block title %}
+Customers
+{% endblock title %}
+
+{% block content %}
+
+{% load static %}
+
+<section class="content">
+    <style>
+        label {
+            /* display: block; */
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 30%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            color: #888;
+            margin-top: 8px;
+        }
+    </style>
+    <form action="{% url 'all_customers' %}" method="GET">
+        <label for="searchNameInput">Search by Name:</label>
+        <input type="text" id="searchNameInput" name="search_name" value="{{ search_name_query }}">
+
+        <label for="searchEmailInput">Search by Email:</label>
+        <input type="text" id="searchEmailInput" name="search_email" value="{{ search_email_query }}">
+
+        <button type="submit">Search</button>
+
+        {% if no_results %}
+        <p style="color: #333;">No results found.</p>
+        {% endif %}
+
+        {% if search_name_query or search_email_query %}
+        <a href="{% url 'all_customers' %}"><button type="button">Clear</button></a>
+        {% endif %}
+    </form>
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card">
+
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Address</th>
+                                    <th>Phone No.</th>
+                                    <th>Email</th>
+                                    <th>Gender</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for customer in customers %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ customer.first_name }}</td>
+                                    <td>{{ customer.last_name }}</td>
+                                    <td>{{ customer.address }}</td>
+                                    <td>{{ customer.phone }}</td>
+                                    <td>{{ customer.email }}</td>
+                                    <td>{{ customer.get_gender_display }}</td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+            </div>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</section>
+
+{% endblock content %}

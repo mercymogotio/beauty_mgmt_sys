@@ -1,0 +1,135 @@
+{% extends 'dashboard/base.html' %}
+
+{% block breadcrumb %}
+All Products
+{% endblock breadcrumb %}
+
+{% block title %}
+All Products
+{% endblock title %}
+
+
+{% block content %}
+
+{% load static %}
+
+
+<section class="content">
+    <style>
+        label {
+            /* display: block; */
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 30%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            color: #888;
+            margin-top: 8px;
+        }
+    </style>
+    <form action="{% url 'all_products' %}" method="GET">
+        <label for="searchNameInput">Search by Name:</label>
+        <input type="text" id="searchNameInput" name="search_name" value="{{ search_name_query }}">
+
+        <label for="searchServiceInput">Search by Service:</label>
+        <input type="text" id="searchServiceInput" name="search_service" value="{{ search_service_query }}">
+
+        <button type="submit">Search</button>
+        {% if search_name_query or search_service_query %}
+        <a href="{% url 'all_products' %}"><button type="button">Clear</button></a>
+        {% endif %}
+    </form>
+
+
+    <div class="container-fluid">
+
+        <a class="btn btn-primary" href="{% url 'addProducts' %}" role="button">+ Add Products</a> <br />&nbsp;
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card">
+
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Product Image</th>
+                                    <th>Product Name</th>
+                                    <th>Service</th>
+                                    <th>Product Price</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td><img src="{{ product.image.url }}"
+                                            style="height: 100px; width: 100px; border-radius: 100px;"></td>
+                                    <td>{{ product.name }}</td>
+                                    <td>
+                                        {% with product.service as product_service %}
+                                        {{ product_service.name }}
+                                        {% endwith %}
+                                    </td>
+                                    <td>Ksh {{ product.price }}</td>
+                                    <td>
+                                        <a href="{% url 'editProduct' product.id %}" class="btn btn-success">Edit</a>
+                                        <form method="post" action="{% url 'deleteProduct' product.id %}"
+                                            style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+            </div>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</section>
+
+{% endblock content %}

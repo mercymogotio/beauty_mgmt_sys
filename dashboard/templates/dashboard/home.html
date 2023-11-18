@@ -1,0 +1,70 @@
+{% extends "dashboard/base.html" %}
+
+{% block breadcrumb %}
+Dashboard
+{% endblock breadcrumb %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="panel panel-container">
+  <div class="row">
+
+    <div class="col-xs-6 col-md-4 col-lg-4 no-padding">
+      <div class="panel panel-orange panel-widget border-right">
+        <div class="row no-padding">
+          <em class="fa fa-xl fa-calendar-check-o color-teal"></em>
+          <div class="large">{{ count_appoint }}</div>
+          <div class="text-muted">Appointments</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4 col-lg-4 no-padding">
+      <div class="panel panel-teal panel-widget border-right">
+        <div class="row no-padding">
+          <em class="fa fa-xl fa-users color-teal"></em>
+          <div class="large">{{count_customers}}</div>
+          <div class="text-muted">Customers</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4 col-lg-4 no-padding">
+      <div class="panel panel-blue panel-widget border-right">
+        <div class="row no-padding">
+          <em class="fa fa-xl fa-th-list color-orange"></em>
+          <div class="large">{{count_services}}</div>
+          <div class="text-muted">Services</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4 col-lg-4 no-padding">
+      <div class="panel panel-blue panel-widget border-right">
+        <div class="row no-padding">
+          <em class="fa fa-xl fa-th-list color-orange"></em>
+          <div class="large">{{count_products}}</div>
+          <div class="text-muted">Products</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-xs-6 col-md-4 col-lg-4 no-padding">
+    <div class="panel panel-blue panel-widget border-right">
+      <div class="row no-padding">
+        <em class="fa fa-xl fa-th-list color-orange"></em>
+        <div class="large">{{count_staffs}}</div>
+        <div class="text-muted">Staffs</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock content %}
